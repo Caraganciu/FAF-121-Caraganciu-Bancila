@@ -720,3 +720,58 @@ void ShowWinner(LPCSTR winner)
         UpdateScores(winner);
         over = true;
 }
+
+void UpdateScores(LPCSTR winner)
+{
+        char *buf = new char;
+
+        if(winner == "x")
+        {
+                xScore++;
+                sprintf(buf, "%g", xScore);
+                SetWindowText(STATIC_XVALUE, buf);
+        }
+        if(winner == "o")
+        {
+                oScore++;
+                sprintf(buf, "%g", oScore);
+                SetWindowText(STATIC_OVALUE, buf);
+        }
+        if(winner == "draw")
+        {
+                DrawScore++;
+                sprintf(buf, "%g", DrawScore);
+                SetWindowText(STATIC_DRAW_VALUE, buf);
+
+        }
+
+        delete buf;
+        buf = 0;
+}
+
+void RestartGame()
+{
+            for(int i=0;i<9;i++)
+            {
+                bStatus[i] = 0;
+            }
+
+            // Reset all the icons
+
+            SendMessage(BUTTON_1, BM_SETIMAGE, IMAGE_ICON, 0);
+            SendMessage(BUTTON_2, BM_SETIMAGE, IMAGE_ICON, 0);
+            SendMessage(BUTTON_3, BM_SETIMAGE, IMAGE_ICON, 0);
+            SendMessage(BUTTON_4, BM_SETIMAGE, IMAGE_ICON, 0);
+            SendMessage(BUTTON_5, BM_SETIMAGE, IMAGE_ICON, 0);
+            SendMessage(BUTTON_6, BM_SETIMAGE, IMAGE_ICON, 0);
+            SendMessage(BUTTON_7, BM_SETIMAGE, IMAGE_ICON, 0);
+            SendMessage(BUTTON_8, BM_SETIMAGE, IMAGE_ICON, 0);
+            SendMessage(BUTTON_9, BM_SETIMAGE, IMAGE_ICON, 0);
+
+            turn = 0;
+            turnColor = 1;
+            SetTurn();
+            over = false;
+            draw = false;
+            counter = 0;
+}
