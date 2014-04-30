@@ -324,3 +324,218 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
     return 0;
 }
 
+void InitGUI(const HWND hwnd, CREATESTRUCT *cs)
+{
+       RECT rc = {45, 70, 150, 150};
+
+       BUTTON_1 = CreateControl("BUTTON",              //Type of control
+                                "",                    //Caption for control
+                                hwnd,                  //Parent window
+                                cs->hInstance,         //HINSTANCE
+                                BS_ICON,               //dwStyle
+                                0,                     //dwExStyle
+                                rc,                    //RECT struct
+                                IDB_1                  //ID
+                                );
+
+        rc.left += 150;
+        BUTTON_2 = CreateControl("BUTTON",
+                                "",
+                                hwnd,
+                                cs->hInstance,
+                                BS_ICON,
+                                0,
+                                rc,
+                                IDB_2
+                                );
+
+        rc.left += 150;
+        BUTTON_3 = CreateControl("BUTTON",
+                                "",
+                                hwnd,
+                                cs->hInstance,
+                                BS_ICON,
+                                0,
+                                rc,
+                                IDB_3
+                                );
+
+        rc.left -= 300;
+        rc.top += 150;
+        BUTTON_4 = CreateControl("BUTTON",
+                                "",
+                                hwnd,
+                                cs->hInstance,
+                                BS_ICON,
+                                0,
+                                rc,
+                                IDB_4
+                                );
+
+        rc.left += 150;
+        BUTTON_5 = CreateControl("BUTTON",
+                                "",
+                                hwnd,
+                                cs->hInstance,
+                                BS_ICON,
+                                0,
+                                rc,
+                                IDB_5
+                                );
+
+        rc.left += 150;
+        BUTTON_6 = CreateControl("BUTTON",
+                                "",
+                                hwnd,
+                                cs->hInstance,
+                                BS_ICON,
+                                0,
+                                rc,
+                                IDB_6
+                                );
+
+        rc.left -= 300;
+        rc.top += 150;
+        BUTTON_7 = CreateControl("BUTTON",
+                                "",
+                                hwnd,
+                                cs->hInstance,
+                                BS_ICON,
+                                0,
+                                rc,
+                                IDB_7
+                                );
+
+        rc.left += 150;
+        BUTTON_8 = CreateControl("BUTTON",
+                                "",
+                                hwnd,
+                                cs->hInstance,
+                                BS_ICON,
+                                0,
+                                rc,
+                                IDB_8
+                                );
+
+        rc.left += 150;
+        BUTTON_9 = CreateControl("BUTTON",
+                                "",
+                                hwnd,
+                                cs->hInstance,
+                                BS_ICON,
+                                0,
+                                rc,
+                                IDB_9
+                                );
+
+        SetRect(&rc, 226, 20, 124, 18);
+
+        STATIC_TURN = CreateControl("STATIC",
+                                    "Crosses turn",
+                                    hwnd,
+                                    cs->hInstance,
+                                    SS_SIMPLE,
+                                    0,
+                                    rc,
+                                    IDS_TURN
+                                    );
+
+        SetRect(&rc, 510, 240, 90, 19);
+        STATIC_SCORE = CreateControl("STATIC",
+                                      "SCORE:",
+                                      hwnd,
+                                      cs->hInstance,
+                                      SS_SIMPLE,
+                                      0,
+                                      rc,
+                                      NULL
+                                      );
+
+        SetRect(&rc, 510, 93, 90, 30);
+        BUTTON_RESTART = CreateControl("BUTTON",
+                                       "Restart",
+                                       hwnd,
+                                       cs->hInstance,
+                                       BS_PUSHBUTTON,
+                                       WS_EX_CLIENTEDGE,
+                                       rc,
+                                       IDB_RESTART
+                                       );
+
+        SetRect(&rc, 510, 143, 70, 30);
+        BUTTON_RESET = CreateControl("BUTTON",
+                                       "Reset",
+                                       hwnd,
+                                       cs->hInstance,
+                                       BS_PUSHBUTTON,
+                                       WS_EX_CLIENTEDGE,
+                                       rc,
+                                       IDB_RESET
+                                       );
+
+        SetRect(&rc, 510, 270, 90, 19);
+        STATIC_XSCORE = CreateControl("STATIC",
+                                      "Crosses:",
+                                      hwnd,
+                                      cs->hInstance,
+                                      SS_SIMPLE,
+                                      0,
+                                      rc,
+                                      IDS_XSCORE
+                                      );
+
+        rc.left += 95;
+        STATIC_XVALUE = CreateControl("STATIC",
+                                      "0",
+                                      hwnd,
+                                      cs->hInstance,
+                                      SS_SIMPLE,
+                                      0,
+                                      rc,
+                                      IDS_XVALUE
+                                      );
+
+        SetRect(&rc, 515, 320, 90, 19);
+        STATIC_DRAW_SCORE = CreateControl("STATIC",
+                                        "Draws:",
+                                        hwnd,
+                                        cs->hInstance,
+                                        SS_SIMPLE,
+                                        0,
+                                        rc,
+                                        IDS_DRAW_SCORE
+                                        );
+
+        rc.left += 90;
+        STATIC_DRAW_VALUE = CreateControl("STATIC",
+                                        "0",
+                                        hwnd,
+                                        cs->hInstance,
+                                        SS_SIMPLE,
+                                        0,
+                                        rc,
+                                        IDS_DRAW_VALUE
+                                        );
+
+        SetRect(&rc, 511, 295, 90, 19);
+        STATIC_OSCORE = CreateControl("STATIC",
+                                      "Noughts:",
+                                      hwnd,
+                                      cs->hInstance,
+                                      SS_SIMPLE,
+                                      0,
+                                      rc,
+                                      IDS_OSCORE
+                                      );
+
+        rc.left += 94;
+        STATIC_OVALUE = CreateControl("STATIC",
+                                      "0",
+                                      hwnd,
+                                      cs->hInstance,
+                                      SS_SIMPLE,
+                                      0,
+                                      rc,
+                                      IDS_OVALUE
+                                      );
+}
