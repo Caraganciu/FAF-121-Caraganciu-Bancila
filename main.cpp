@@ -527,6 +527,158 @@ void InitGUI(const HWND hwnd, CREATESTRUCT *cs)
                                       rc,
                                       IDS_OSCORE
                                       );
+                                      
+   void SetBox(int b, HWND hwnd)
+{
+        if(bStatus[b] == 0)
+        {
+        counter++;
+
+        if(turn == 0)               // if Crosses turn
+        {
+                bStatus[b] = X;
+                turn = 1;
+                SetTurn();
+                CheckWinner();
+                if(draw == false)
+                    SendMessage(hwnd, BM_SETIMAGE, IMAGE_ICON, reinterpret_cast<LPARAM>(xIcon));
+
+        }
+        else if(turn == 1)         // if Noughts turn
+        {
+                bStatus[b] = O;
+                turn = 0;
+                SetTurn();
+                CheckWinner();
+                if(draw == false)
+                    SendMessage(hwnd, BM_SETIMAGE, IMAGE_ICON, reinterpret_cast<LPARAM>(oIcon));
+        }
+        }
+}
+
+void SetTurn()
+{
+        if(turn == 0)
+        {
+                SetWindowText(STATIC_TURN, "Crosses Turn  ");
+                turnColor = 1;
+        }
+        else if(turn == 1)
+        {
+                SetWindowText(STATIC_TURN, "Noughts Turn    ");
+                turnColor = 2;
+        }
+}
+
+void CheckWinner()
+{
+
+        // Check Crosses Victory
+        // Check Rows
+
+        if(bStatus[0] == X && bStatus[1] == X && bStatus[2] == X)
+        {
+                ShowWinner("x");
+
+
+        }
+
+        if(bStatus[3] == X && bStatus[4] == X && bStatus[5] == X)
+        {
+                ShowWinner("x");
+        }
+
+        if(bStatus[6] == X && bStatus[7] == X && bStatus[8] == X)
+        {
+                ShowWinner("x");
+        }
+
+        //Check Collums
+
+        if(bStatus[0] == X && bStatus[3] == X && bStatus[6] == X)
+        {
+                ShowWinner("x");
+        }
+
+        if(bStatus[1] == X && bStatus[4] == X && bStatus[7] == X)
+        {
+                ShowWinner("x");
+        }
+
+        if(bStatus[2] == X && bStatus[5] == X && bStatus[8] == X)
+        {
+                ShowWinner("x");
+        }
+
+        //Check Diagonals
+
+        if(bStatus[0] == X && bStatus[4] == X && bStatus[8] == X)
+        {
+                ShowWinner("x");
+        }
+
+        if(bStatus[2] == X && bStatus[4] == X && bStatus[6] == X)
+        {
+                ShowWinner("x");
+        }
+
+
+        //-------------------------------------------------------
+
+
+        // Check noughts Victory
+        // Check Rows
+
+        if(bStatus[0] == O && bStatus[1] == O && bStatus[2] == O)
+        {
+                ShowWinner("o");
+        }
+
+        if(bStatus[3] == O && bStatus[4] == O && bStatus[5] == O)
+        {
+                ShowWinner("o");
+        }
+
+        if(bStatus[6] == O && bStatus[7] == O && bStatus[8] == O)
+        {
+                ShowWinner("o");
+        }
+
+        //Check Collums
+
+        if(bStatus[0] == O && bStatus[3] == O && bStatus[6] == O)
+        {
+                ShowWinner("o");
+        }
+
+        if(bStatus[1] == O && bStatus[4] == O && bStatus[7] == O)
+        {
+                ShowWinner("o");
+        }
+
+        if(bStatus[2] == O && bStatus[5] == O && bStatus[8] == O)
+        {
+                ShowWinner("o");
+        }
+
+        //Check Diagonals
+
+        if(bStatus[0] == O && bStatus[4] == O && bStatus[8] == O)
+        {
+                ShowWinner("o");
+        }
+
+        if(bStatus[2] == O && bStatus[4] == O && bStatus[6] == O)
+        {
+                ShowWinner("o");
+        }
+
+
+        else if(counter >= 9 && over == false)
+        {
+                ShowWinner("draw");
+        }
+}
 
         rc.left += 94;
         STATIC_OVALUE = CreateControl("STATIC",
