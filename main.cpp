@@ -691,3 +691,32 @@ void CheckWinner()
                                       IDS_OVALUE
                                       );
 }
+
+void ShowWinner(LPCSTR winner)
+{
+        if(winner == "x")
+        {
+                SetWindowText(STATIC_TURN, "Crosses Win!    ");
+                MessageBox(hwnd1, "Crosses Win", "Message", MB_ICONASTERISK);
+        }
+        else if(winner == "o")
+        {
+                SetWindowText(STATIC_TURN, "Noughts Win!      ");
+                MessageBox(hwnd1, "Noughts Win", "Message", MB_ICONASTERISK);
+        }
+        else if(winner == "draw")
+        {
+                turnColor = 0;
+                SetWindowText(STATIC_TURN, "          DRAW            ");
+                MessageBox(hwnd1, "DRAW !", "Message", MB_ICONASTERISK);
+
+        }
+
+        for(int i=0;i<9;i++)
+        {
+                bStatus[i] = -1; //Lock every tile
+        }
+
+        UpdateScores(winner);
+        over = true;
+}
