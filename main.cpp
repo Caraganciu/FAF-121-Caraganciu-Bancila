@@ -206,3 +206,46 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
             }
 
                 break;
+                
+       case WM_CREATE:
+
+            br_txt = CreateSolidBrush(RGB(0, 0, 0));
+            xIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_X));
+            oIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_O));
+
+
+            InitGUI(hwnd, reinterpret_cast<CREATESTRUCT*>(lParam));
+
+            for(int i=0;i<9;i++)
+            {
+                    bStatus[i] = 0;
+            }
+
+                break;
+
+        case WM_COMMAND:
+
+            switch(LOWORD(wParam))
+            {
+                    case IDB_1: SetBox(0, BUTTON_1); break;
+
+                    case IDB_2: SetBox(1, BUTTON_2); break;
+
+                    case IDB_3: SetBox(2, BUTTON_3); break;
+
+                    case IDB_4: SetBox(3, BUTTON_4); break;
+
+                    case IDB_5: SetBox(4, BUTTON_5); break;
+
+                    case IDB_6: SetBox(5, BUTTON_6); break;
+
+                    case IDB_7: SetBox(6, BUTTON_7); break;
+
+                    case IDB_8: SetBox(7, BUTTON_8); break;
+
+                    case IDB_9: SetBox(8, BUTTON_9); break;
+
+                    case IDB_RESTART:
+
+                                RestartGame();
+                        break;
