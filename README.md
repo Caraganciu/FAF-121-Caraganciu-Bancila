@@ -29,6 +29,7 @@ Application Creation Steps
 
 This Laboratory Work was done in team. We are just two people in team : Bancila Iana and Craganciu Dan.  Our first idea about what topic to choose was to create a Tic-Tac-Toe Game beacause it is our favorite simple game (sometimes we play this game at pairs :D, oops). 
 Iana Bancila sketched the whole project interface and created the icons. After that, Iana implemented this interface in application. Dan did the technical part, all logical stuff. At the end we got nice Tic-Tac-Toe Game which has the following functionality: 
+
 1.	At the top of window it is shown who’s turn is (first turn is always crosses turn)
 2.	You can restart the game by pushing “restart” button, which means you try one more time to play the game without resetting the scores while “reset” button resets all the scores. 
 3.	You can see what score you gained.
