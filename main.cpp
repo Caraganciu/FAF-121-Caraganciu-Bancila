@@ -775,3 +775,36 @@ void RestartGame()
             draw = false;
             counter = 0;
 }
+
+BOOL CALLBACK AboutDlgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+        switch(msg)
+        {
+                case WM_COMMAND:
+
+                    switch(LOWORD(wParam))
+                    {
+                            case IDOK:
+
+                                EndDialog(hwnd, IDOK);
+
+                                break;
+
+                            case IDCANCEL:
+
+                                EndDialog(hwnd, IDCANCEL);
+
+                                break;
+                    }
+
+                    break;
+
+                default:
+
+                    return FALSE;
+
+                    break;
+        }
+
+        return TRUE;
+}
