@@ -25,3 +25,10 @@ HBRUSH br_txt = NULL;          //text coloring
 HWND hwndCtl;
 HDC  hdcDisp;
 
+//Game control variables
+
+float xScore = 0, oScore = 0, DrawScore = 0;
+bool over = false, draw = false;
+short turnColor =1;
+short turn = 0, counter = 0;
+int bStatus[9] = {0};
