@@ -124,3 +124,85 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
     }
     return msg.wParam;
     }
+    
+    LRESULT CALLBACK MyWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{  char *buf = new char;
+	switch(msg)
+	{
+	    case WM_CTLCOLORSTATIC:
+
+            hwndCtl = (HWND)lParam;
+            hdcDisp = (HDC)wParam;
+
+            if(hwndCtl == GetDlgItem(hwnd, IDS_TITLE))
+            {
+                    SetTextColor(hdcDisp, RGB(255, 165, 0));
+                    SetBkColor(hdcDisp, RGB(255, 255, 255));
+                    return (LONG)br_txt;
+            }
+
+            if(hwndCtl == GetDlgItem(hwnd, IDS_TURN))
+            {
+                    if(turnColor == 1)                                        //Crosses turn
+                    {
+                            SetTextColor(hdcDisp, RGB(230, 30, 15));
+                    }
+                    else if(turnColor == 2)                                   //Noughts turn
+                    {
+                            SetTextColor(hdcDisp, RGB(15, 30, 230));
+                    }
+                    else if(turnColor == 3)                                   //draw wins
+                    {
+                            SetTextColor(hdcDisp, RGB(255, 255, 0));
+                    }
+
+                    SetBkColor(hdcDisp, RGB(255, 255, 255));
+                    return (LONG)br_txt;
+            }
+
+            //Set X score colors
+
+            if(hwndCtl == GetDlgItem(hwnd, IDS_XSCORE))
+            {
+                    SetTextColor(hdcDisp, RGB(15, 30, 230));
+                    SetBkMode(hdcDisp, TRANSPARENT);
+                    return (LONG)br_txt;
+            }
+            if(hwndCtl == GetDlgItem(hwnd, IDS_XVALUE))
+            {
+                    SetTextColor(hdcDisp, RGB(0, 0, 0));
+                    SetBkColor(hdcDisp, RGB(255, 255, 255));
+                    return (LONG)br_txt;
+            }
+
+            //Set Draw score colors
+
+            if(hwndCtl == GetDlgItem(hwnd, IDS_DRAW_SCORE))
+            {
+                    SetTextColor(hdcDisp, RGB(0, 0, 0));
+                    SetBkMode(hdcDisp, TRANSPARENT);
+                    return (LONG)br_txt;
+            }
+            if(hwndCtl == GetDlgItem(hwnd, IDS_DRAW_VALUE))
+            {
+                    SetTextColor(hdcDisp, RGB(0, 0, 0));
+                    SetBkColor(hdcDisp, RGB(255, 255, 255));
+                    return (LONG)br_txt;
+            }
+
+            //Set O score colors
+
+            if(hwndCtl == GetDlgItem(hwnd, IDS_OSCORE))
+            {
+                    SetTextColor(hdcDisp, RGB(230, 30, 15));
+                    SetBkMode(hdcDisp, TRANSPARENT);
+                    return (LONG)br_txt;
+            }
+            if(hwndCtl == GetDlgItem(hwnd, IDS_OVALUE))
+            {
+                    SetTextColor(hdcDisp, RGB(0, 0, 0));
+                    SetBkColor(hdcDisp, RGB(255, 255, 255));
+                    return (LONG)br_txt;
+            }
+
+                break;
