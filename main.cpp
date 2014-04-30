@@ -249,3 +249,78 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
 
                                 RestartGame();
                         break;
+                    case IDB_RESET:
+                        xScore=0;
+                        oScore=0;
+                        DrawScore=0;
+                        sprintf(buf, "%g", xScore);
+                        SetWindowText(STATIC_XVALUE, buf);
+                        sprintf(buf, "%g", oScore);
+                        SetWindowText(STATIC_OVALUE, buf);
+                        sprintf(buf, "%g", DrawScore);
+                        SetWindowText(STATIC_DRAW_VALUE, buf);
+                        delete buf;
+                        buf = 0;
+
+                        break;
+
+                    //Menu items
+
+                    case IDR_FILE_QUIT:
+                        if(MessageBox(hwnd, "Do you really want to quit? ", "Message", MB_YESNO | MB_ICONEXCLAMATION) == IDYES)
+                            {
+                                DestroyWindow(hwnd);
+                                PostQuitMessage(0);
+                            }
+
+                        break;
+
+                    case IDR_OPTIONS_RESTART:
+
+                        RestartGame();
+
+                        break;
+                    case IDR_OPTIONS_RESET:
+                        xScore=0;
+                        oScore=0;
+                        DrawScore=0;
+                        sprintf(buf, "%g", xScore);
+                        SetWindowText(STATIC_XVALUE, buf);
+                        sprintf(buf, "%g", oScore);
+                        SetWindowText(STATIC_OVALUE, buf);
+                        sprintf(buf, "%g", DrawScore);
+                        SetWindowText(STATIC_DRAW_VALUE, buf);
+                        delete buf;
+                        buf = 0;
+
+                        break;
+
+                    case IDR_HELP_ABOUT:
+
+                        DialogBox(GetModuleHandle(NULL),
+                                MAKEINTRESOURCE(IDD_ABOUT), hwnd, AboutDlgProc);
+
+                        break;
+
+            }
+
+            break;
+
+
+        case WM_CLOSE:
+            {
+                    if(MessageBox(hwnd, "Do you really want to quit? ", "Message", MB_YESNO | MB_ICONEXCLAMATION) == IDYES)
+                    DestroyWindow(hwnd);
+            }
+
+            break;
+	    case WM_DESTROY:
+            PostQuitMessage(0);
+            break;
+
+        default:
+            return DefWindowProc(hwnd, msg, wParam, lParam);
+    }
+    return 0;
+}
+
