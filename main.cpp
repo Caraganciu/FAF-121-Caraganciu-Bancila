@@ -56,3 +56,10 @@ LRESULT CALLBACK MyWndProc1(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 LRESULT CALLBACK MyWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 BOOL CALLBACK AboutDlgProc(HWND, UINT, WPARAM, LPARAM);
+void InitGUI(const HWND hwnd, CREATESTRUCT *cs);
+void SetBox(int, HWND);
+void SetTurn();
+void CheckWinner();
+void ShowWinner(LPCSTR);
+void UpdateScores(LPCSTR);
+void RestartGame();
