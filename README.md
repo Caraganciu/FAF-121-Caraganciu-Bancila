@@ -36,6 +36,30 @@ Iana Bancila sketched the whole project interface and created the icons. After t
 4.	When someone wins a message box appears with mention about the winner.
 5.	There are two popup menus. First, “Game” menu has two options, to restart and to quit the game and “Help” menu which shows “About” dialog box.
 
+First of all we've sketched our laboratory work on a paper. Designed all the buttons, elements. After that we've added the elements. Then we've set their functionality step by step. And in the end we've added the properties to do stuff.
+In order to understand more clearly we made a wireframe model of our application general layout and functionality. Here is the mockup we came up with:
+
+![Lab_5_Sketch_Bancila_Caraganciu] (https://raw.githubusercontent.com/Caraganciu/FAF-121-Caraganciu-Bancila/master/Screens&Mockup/Lab_5_Sketch_Bancila_Caraganciu.png)
+
+Result of application
+---------------------
+
+This is the screenshots of the application in the virtual Windows 8.1 environment:
+
+![screenshot1] (https://raw.githubusercontent.com/Caraganciu/FAF-121-Caraganciu-Bancila/master/Screens&Mockup/screenshot1.png)
+
+![screenshot2] (https://raw.githubusercontent.com/Caraganciu/FAF-121-Caraganciu-Bancila/master/Screens&Mockup/screenshot2.png)
+
+
+Conclusion
+----------
+
+This laboratory work has very interesting task and we really enjoyed doing it. What we liked most is the fact how simple it is.
+
+I think the work we did went smoothly and we had no problems. The process was really simple but we haven’t managed to accomplish all the features that we have planned.
+       
+Well, this laboratory work was very addictive, our game is very funny. Now we play this game without drawing on paper those lines, its more simple.
+
 
 
 
