@@ -1,0 +1,33 @@
+#include "resource.h"
+#include <afxres.h>
+
+IDR_MENU MENU DISCARDABLE
+BEGIN
+    POPUP "&Game"
+    BEGIN
+        MENUITEM "&Restart",        IDR_OPTIONS_RESTART
+        MENUITEM SEPARATOR
+        MENUITEM "&Quit\tAlt+F4",   IDR_FILE_QUIT
+    END
+
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About",          IDR_HELP_ABOUT
+    END
+END
+
+IDI_ICON  ICON DISCARDABLE "TicTacToe.ico"
+IDI_X     ICON DISCARDABLE "cross.ico"
+IDI_O     ICON DISCARDABLE "nought.ico"
+
+
+
+IDD_ABOUT DIALOG DISCARDABLE 165, 42, 242, 75
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About"
+FONT 10, "Comic Sans MS"
+BEGIN
+    DEFPUSHBUTTON "&OK", IDOK, 170, 30, 40, 18
+    GROUPBOX "About", IDC_STATIC, 9, 5, 225, 64
+    CTEXT " Mini-GAME Tic-Tac-Toe\n\n Made By:\n   Caraganciu Dan\nBancila Iana", IDC_STATIC, 16, 21, 144, 40
+END
