@@ -33,7 +33,6 @@ This Laboratory Work was done in a team. We are just two people in the team: Ban
 2.	You can restart the game by pushing “restart” button, which means you try one more time to play the game without resetting the scores while “reset” button resets all the scores. 
 3.	You can see what score you gained.
 4.	When someone wins a message box appears with mention about the winner, or if it is a draw.
-There are two popup menus. First, “Game” menu has three options, to restart, to reset and to quit the
 5. There are two popup menus. First, “Game” menu has three options, to restart, to reset and to quit the game. The “Help” menu shows “About” dialog box.
 
 First of all we've sketched our laboratory work on a paper. Designed all the buttons, elements. After that we've added the elements. Then we've set their functionality step by step. And in the end we've added the properties to do stuff.
