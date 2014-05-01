@@ -1,7 +1,7 @@
 Windows Programming
 ===================
 #Laboratory Work #5
-###### student of FAF-121 gr.: IANA Bancila, DAN Caraganciu
+###### students of FAF-121 gr.: IANA Bancila, DAN Caraganciu
 
 ##Title: Collaboration. Complex application.
 
