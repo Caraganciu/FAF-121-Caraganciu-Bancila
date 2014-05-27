@@ -1,13 +1,14 @@
 #include "ticTacToe.h"
 #include "resource.h"
+
 #define ID_BUTTON 100
 
 #define X 1
 #define O 2
 
 //Global Windows
-
-HWND BUTTON_1, BUTTON_2, BUTTON_3, BUTTON_4,BUTTON_5, BUTTON_6, BUTTON_7, BUTTON_8, BUTTON_9;       //Main buttons
+HWND BUTTON_1, BUTTON_2, BUTTON_3, BUTTON_4,
+     BUTTON_5, BUTTON_6, BUTTON_7, BUTTON_8, BUTTON_9; //Main buttons
 HWND BUTTON_RESTART;
 HWND BUTTON_RESET;
 HWND STATIC_TURN;
@@ -16,17 +17,16 @@ HWND STATIC_XSCORE,STATIC_SCORE, STATIC_OSCORE, STATIC_DRAW_SCORE;
 HWND STATIC_XVALUE, STATIC_OVALUE, STATIC_DRAW_VALUE;
 
 //Icons
-
 HICON xIcon = NULL;
 HICON oIcon = NULL;
 
 
-HBRUSH br_txt = NULL;          //text coloring
+//Misc
+HBRUSH br_txt = NULL; //text coloring
 HWND hwndCtl;
 HDC  hdcDisp;
 
 //Game control variables
-
 float xScore = 0, oScore = 0, DrawScore = 0;
 bool over = false, draw = false;
 short turnColor =1;
@@ -48,13 +48,11 @@ enum{
 HINSTANCE hInstance;
 HWND hwnd1;
 HWND hwnd2;
-
 int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd);
 LRESULT CALLBACK MyWndProc1(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 //Windows Procedure for the game
-
-LRESULT CALLBACK MyWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK MyWndProc2(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 BOOL CALLBACK AboutDlgProc(HWND, UINT, WPARAM, LPARAM);
 void InitGUI(const HWND hwnd, CREATESTRUCT *cs);
 void SetBox(int, HWND);
@@ -72,28 +70,27 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
 	memset(&wnd2,0,sizeof(WNDCLASSEX));
     MSG msg;
     HWND hwnd1;
+    HWND hwnd2;
 
     hInstance = hInst;
 
     // The Window  structure
-
     wnd2.cbSize=sizeof(WNDCLASSEX);
     wnd2.hInstance = hInstance;
-    wnd2.lpfnWndProc = MyWndProc;                                                 // This function is called by windows
-    wnd2.style = CS_HREDRAW | CS_VREDRAW;                                          // Redraw
+    wnd2.lpfnWndProc = MyWndProc2;                  /* This function is called by windows */
+    wnd2.style = CS_HREDRAW | CS_VREDRAW;           /* Redraw */
     wnd2.cbSize = sizeof (WNDCLASSEX);
     wnd2.hIcon = LoadIcon (GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON));
     wnd2.hCursor = LoadCursor (NULL, IDC_ARROW);
-    wnd2.lpszMenuName = MAKEINTRESOURCE(IDR_MENU);                                 // Menu
-    wnd2.cbClsExtra = 0;                                                           // No extra bytes after the window class
-    wnd2.cbWndExtra = 0;                                                           // Structure or the window instance
-    wnd2.hbrBackground = (HBRUSH)CreateSolidBrush(RGB(56,176,222));                // GetSysColorBrush(COLOR_3DFACE);
+    wnd2.lpszMenuName = MAKEINTRESOURCE(IDR_MENU);  /* Menu */
+    wnd2.cbClsExtra = 0;                            /* No extra bytes after the window class */
+    wnd2.cbWndExtra = 0;                            /* structure or the window instance */
+    wnd2.hbrBackground = (HBRUSH)CreateSolidBrush(RGB(56,176,222));//GetSysColorBrush(COLOR_3DFACE);
     wnd2.lpszClassName = "MyClass1";
     wnd2.hIconSm = (HICON)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON), IMAGE_ICON, 0, 0, 0);
 
 
-   // Register the window class, and if it fails quit the program
-
+    /* Register the window class, and if it fails quit the program */
    if (!RegisterClassEx (&wnd2))
         {MessageBox(NULL,"Could not register class2","Window Class Failed",MB_ICONERROR);
         }
@@ -103,29 +100,76 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
                         NULL,
                         "MyClass1",
                        "Tic-Tac-Toe",
-                       WS_OVERLAPPED|WS_SYSMENU,                         //basic window style
-                       CW_USEDEFAULT,CW_USEDEFAULT,                      //set starting point to default value
-                       646, 625,                                         //set all the dimensions to default value
-                       NULL,                                             //no parent window
-                       NULL,                                             //no menu
+                       WS_OVERLAPPED|WS_SYSMENU,        //basic window style
+                       CW_USEDEFAULT,CW_USEDEFAULT,     //set starting point to default value
+                       646, 625,                        //set all the dimensions to default value
+                       NULL,                            //no parent window
+                       NULL,                            //no menu
                        hInstance,
-                       NULL);                                            //no parameters to pass
-    ShowWindow(hwnd1, SW_SHOW);                                          //display the window on the screen
-    UpdateWindow(hwnd1);                                                 //make sure the window is updated correctly
-
+                       NULL);                           //no parameters to pass
+    ShowWindow(hwnd1, SW_SHOW);              //display the window on the screen
+    UpdateWindow(hwnd1);             //make sure the window is updated correctly
     // Place the Window in the center of the screen
-
     CenterWindow(hwnd1);
 
-    while(GetMessage(&msg, NULL, 0, 0))                                  //message loop
+    while(GetMessage(&msg, NULL, 0, 0))      //message loop
     {
        TranslateMessage(&msg);
        DispatchMessage(&msg);
     }
     return msg.wParam;
     }
-    
-    LRESULT CALLBACK MyWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+
+LRESULT CALLBACK MyWndProc1(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+    static HWND button;
+    HDC hdc = GetDC(hwnd);
+    HDC hdcMem;
+    PAINTSTRUCT ps;
+    BITMAP bitmap;
+    HBITMAP hbmplogo = NULL;
+    hbmplogo = (HBITMAP)LoadImage(hInstance, "logo.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+    GetObject(hbmplogo, sizeof(bitmap), &bitmap);
+
+
+    switch(msg)
+    {
+
+        case WM_PAINT:
+              hdc = BeginPaint(hwnd, &ps);
+              hdcMem = CreateCompatibleDC(hdc);
+              SelectObject(hdcMem, hbmplogo);
+
+            // Copy the bits from the memory DC into the current dc
+                BitBlt(hdc,
+                10,
+                10,
+                bitmap.bmWidth, bitmap.bmHeight,
+                hdcMem, 0, 0, SRCCOPY);
+
+            // Restore the old bitmap
+                DeleteDC(hdcMem);
+
+            EndPaint(hwnd, &ps);
+
+             break;
+
+         case WM_CLOSE:
+            if(MessageBox(hwnd, "Are you sure? ", "Message", MB_YESNO | MB_ICONEXCLAMATION) == IDYES)
+                {
+                    DestroyWindow(hwnd);
+                    PostQuitMessage(0);
+                }
+
+            break ;
+
+        default:
+            return DefWindowProc(hwnd, msg, wParam, lParam);
+    }
+    return 0;
+}
+
+LRESULT CALLBACK MyWndProc2(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {  char *buf = new char;
 	switch(msg)
 	{
@@ -143,15 +187,15 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
 
             if(hwndCtl == GetDlgItem(hwnd, IDS_TURN))
             {
-                    if(turnColor == 1)                                        //Crosses turn
+                    if(turnColor == 1) //Crosses turn
                     {
                             SetTextColor(hdcDisp, RGB(230, 30, 15));
                     }
-                    else if(turnColor == 2)                                   //Noughts turn
+                    else if(turnColor == 2) //Noughts turn
                     {
                             SetTextColor(hdcDisp, RGB(15, 30, 230));
                     }
-                    else if(turnColor == 3)                                   //draw wins
+                    else if(turnColor == 3) //draw wins
                     {
                             SetTextColor(hdcDisp, RGB(255, 255, 0));
                     }
@@ -161,7 +205,6 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
             }
 
             //Set X score colors
-
             if(hwndCtl == GetDlgItem(hwnd, IDS_XSCORE))
             {
                     SetTextColor(hdcDisp, RGB(15, 30, 230));
@@ -176,7 +219,6 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
             }
 
             //Set Draw score colors
-
             if(hwndCtl == GetDlgItem(hwnd, IDS_DRAW_SCORE))
             {
                     SetTextColor(hdcDisp, RGB(0, 0, 0));
@@ -191,7 +233,6 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
             }
 
             //Set O score colors
-
             if(hwndCtl == GetDlgItem(hwnd, IDS_OSCORE))
             {
                     SetTextColor(hdcDisp, RGB(230, 30, 15));
@@ -206,8 +247,10 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
             }
 
                 break;
-                
-       case WM_CREATE:
+
+
+
+        case WM_CREATE:
 
             br_txt = CreateSolidBrush(RGB(0, 0, 0));
             xIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_X));
@@ -249,6 +292,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
 
                                 RestartGame();
                         break;
+
                     case IDB_RESET:
                         xScore=0;
                         oScore=0;
@@ -265,7 +309,6 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
                         break;
 
                     //Menu items
-
                     case IDR_FILE_QUIT:
                         if(MessageBox(hwnd, "Do you really want to quit? ", "Message", MB_YESNO | MB_ICONEXCLAMATION) == IDYES)
                             {
@@ -309,7 +352,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
 
         case WM_CLOSE:
             {
-                    if(MessageBox(hwnd, "Do you really want to quit? ", "Message", MB_YESNO | MB_ICONEXCLAMATION) == IDYES)
+                    if(MessageBox(hwnd, "Are you sure? ", "Message", MB_YESNO | MB_ICONEXCLAMATION) == IDYES)
                     DestroyWindow(hwnd);
             }
 
@@ -328,14 +371,14 @@ void InitGUI(const HWND hwnd, CREATESTRUCT *cs)
 {
        RECT rc = {45, 70, 150, 150};
 
-       BUTTON_1 = CreateControl("BUTTON",              //Type of control
-                                "",                    //Caption for control
-                                hwnd,                  //Parent window
-                                cs->hInstance,         //HINSTANCE
-                                BS_ICON,               //dwStyle
-                                0,                     //dwExStyle
-                                rc,                    //RECT struct
-                                IDB_1                  //ID
+       BUTTON_1 = CreateControl("BUTTON",       //Type of control
+                                "",             //Caption for control
+                                hwnd,           //Parent window
+                                cs->hInstance,  //HINSTANCE
+                                BS_ICON,        //dwStyle
+                                0,              //dwExStyle
+                                rc,             //RECT struct
+                                IDB_1           //ID
                                 );
 
         rc.left += 150;
@@ -527,14 +570,27 @@ void InitGUI(const HWND hwnd, CREATESTRUCT *cs)
                                       rc,
                                       IDS_OSCORE
                                       );
-                                      
-   void SetBox(int b, HWND hwnd)
+
+        rc.left += 94;
+        STATIC_OVALUE = CreateControl("STATIC",
+                                      "0",
+                                      hwnd,
+                                      cs->hInstance,
+                                      SS_SIMPLE,
+                                      0,
+                                      rc,
+                                      IDS_OVALUE
+                                      );
+}
+
+
+void SetBox(int b, HWND hwnd)
 {
         if(bStatus[b] == 0)
         {
         counter++;
 
-        if(turn == 0)               // if Crosses turn
+        if(turn == 0) // if Crosses turn
         {
                 bStatus[b] = X;
                 turn = 1;
@@ -544,7 +600,7 @@ void InitGUI(const HWND hwnd, CREATESTRUCT *cs)
                     SendMessage(hwnd, BM_SETIMAGE, IMAGE_ICON, reinterpret_cast<LPARAM>(xIcon));
 
         }
-        else if(turn == 1)         // if Noughts turn
+        else if(turn == 1) // if Noughts turn
         {
                 bStatus[b] = O;
                 turn = 0;
@@ -573,9 +629,8 @@ void SetTurn()
 void CheckWinner()
 {
 
-        // Check Crosses Victory
-        // Check Rows
-
+        /* Check Crosses Victory */
+        //Check Rows
         if(bStatus[0] == X && bStatus[1] == X && bStatus[2] == X)
         {
                 ShowWinner("x");
@@ -594,7 +649,6 @@ void CheckWinner()
         }
 
         //Check Collums
-
         if(bStatus[0] == X && bStatus[3] == X && bStatus[6] == X)
         {
                 ShowWinner("x");
@@ -611,7 +665,6 @@ void CheckWinner()
         }
 
         //Check Diagonals
-
         if(bStatus[0] == X && bStatus[4] == X && bStatus[8] == X)
         {
                 ShowWinner("x");
@@ -626,9 +679,8 @@ void CheckWinner()
         //-------------------------------------------------------
 
 
-        // Check noughts Victory
-        // Check Rows
-
+        /* Check noughts Victory */
+        //Check Rows
         if(bStatus[0] == O && bStatus[1] == O && bStatus[2] == O)
         {
                 ShowWinner("o");
@@ -645,7 +697,6 @@ void CheckWinner()
         }
 
         //Check Collums
-
         if(bStatus[0] == O && bStatus[3] == O && bStatus[6] == O)
         {
                 ShowWinner("o");
@@ -662,7 +713,6 @@ void CheckWinner()
         }
 
         //Check Diagonals
-
         if(bStatus[0] == O && bStatus[4] == O && bStatus[8] == O)
         {
                 ShowWinner("o");
@@ -678,18 +728,6 @@ void CheckWinner()
         {
                 ShowWinner("draw");
         }
-}
-
-        rc.left += 94;
-        STATIC_OVALUE = CreateControl("STATIC",
-                                      "0",
-                                      hwnd,
-                                      cs->hInstance,
-                                      SS_SIMPLE,
-                                      0,
-                                      rc,
-                                      IDS_OVALUE
-                                      );
 }
 
 void ShowWinner(LPCSTR winner)
@@ -757,7 +795,6 @@ void RestartGame()
             }
 
             // Reset all the icons
-
             SendMessage(BUTTON_1, BM_SETIMAGE, IMAGE_ICON, 0);
             SendMessage(BUTTON_2, BM_SETIMAGE, IMAGE_ICON, 0);
             SendMessage(BUTTON_3, BM_SETIMAGE, IMAGE_ICON, 0);
