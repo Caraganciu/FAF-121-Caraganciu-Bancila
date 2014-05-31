@@ -838,7 +838,7 @@ BOOL CALLBACK AboutDlgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 default:
 
-                    return FALSE;
+                    return FALSE; 
 
                     break;
         }
